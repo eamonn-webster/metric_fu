@@ -1,0 +1,44 @@
+<h3>Rubocop Results</h3>
+
+<%= render_partial 'graph', {:graph_name => 'rubocop'} %>
+
+<p>
+  </p>
+
+<table>
+  <tr>
+    <th>Offense Count</th>
+    <th>Total Files</th>
+    <th>Files Inspected</th>
+  </tr>
+  <tr>
+    <td><%= @rubocop['offense_count'] %></td>
+    <td><%= @rubocop['target_file_count'] %></td>
+    <td><%= @rubocop['inspected_file_count'] %></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>File Path</th>
+    <th>Severity</th>
+    <th>Message</th>
+    <th>Cop</th>
+  </tr>
+  <% count = 0 %>
+  <% if @rubocop['files'] %>
+    <% @rubocop['files'].each do |file| %>
+      <% file['offenses'].each do |offense| %>
+        <tr>
+          <td><%= link_to_filename(file['path'], offense['location']['line']) %></td>
+          <td><%= offense['severity'] %></td>
+          <td><%= offense['message'] %></td>
+          <td><%= offense['cop_name'] %></td>
+        </tr>
+        <% count += 1 %>
+      <% end %>
+    <% end %>
+  <% end %>
+</table>
+
+<%= render_partial 'report_footer' %>
