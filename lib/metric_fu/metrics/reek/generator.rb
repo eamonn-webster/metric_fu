@@ -15,11 +15,17 @@ module MetricFu
     end
 
     def run!(files, config_files)
-      examiner.new(files, config_files)
+      cmd = "reek"
+      if config_files.first
+        cmd = "#{cmd} --config #{config_files.first}"
+      end
+      cmd = "#{cmd} --format json #{files.join(' ')}"
+      json_text = `#{cmd}`
+      JSON.parse(json_text)
     end
 
     def analyze
-      @matches = @output.smells.group_by(&:source).collect do |file_path, smells|
+      @matches = @output.group_by{|x| x['source']}.collect do |file_path, smells|
         { file_path: file_path,
           code_smells: analyze_smells(smells) }
       end
@@ -67,26 +73,16 @@ module MetricFu
     end
 
     def smell_data(smell)
-      { method: smell.context,
-        message: smell.message,
+      { method: smell['context'],
+        message: smell['message'],
         type: smell_type(smell),
-        lines: smell.lines }
+        lines: smell['lines'] }
     end
 
     def smell_type(smell)
       return smell.subclass if smell.respond_to?(:subclass)
 
-      smell.smell_type
-    end
-
-    def examiner
-      require "reek"
-      # To load any changing dependencies such as "reek/configuration/app_configuration"
-      #   Added in 1.6.0 https://github.com/troessner/reek/commit/7f4ed2be442ca926e08ccc41945e909e8f710947
-      #   But not always loaded
-      require "reek/cli/application"
-
-      Reek.const_defined?(:Examiner) ? Reek.const_get(:Examiner) : Reek.const_get(:Core).const_get(:Examiner)
+      smell['smell_type']
     end
   end
 end
