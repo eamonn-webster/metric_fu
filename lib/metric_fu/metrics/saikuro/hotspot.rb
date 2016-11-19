@@ -29,6 +29,7 @@ class MetricFu::SaikuroHotspot < MetricFu::Hotspot
         location = MetricFu::Location.for(klass[:class_name])
         offending_class = location.class_name
         klass[:methods].each do |match|
+          next if match[:complexity] == 1
           offending_method = MetricFu::Location.for(match[:name]).method_name
           table << {
             "metric" => name,
