@@ -7,6 +7,13 @@
 
 <%= render_partial 'graph', {:graph_name => 'rcov'} %>
 
+<p>
+</p>
+
+<p>
+<a href="../../../coverage/index.html" target="rcov">Results</a>
+</p>
+
 <p>Total Coverage: <%= @rcov.delete(:global_percent_run) %>% </p>
 <table>
   <tr>
