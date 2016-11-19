@@ -1,0 +1,60 @@
+<h3>RSpec Results</h3>
+
+<%= render_partial 'graph', {:graph_name => 'rspec'} %>
+
+<p>
+</p>
+
+<p>
+<a href="../../../tmp/rspec.html" target="rspec">Results</a>
+</p>
+
+<table>
+  <tr>
+    <th>Examples</th>
+    <th>Pending</th>
+    <th>Failures</th>
+    <th>Duration</th>
+  </tr>
+  <tr>
+    <td><%= @rspec['example_count'] %></td>
+    <td><%= @rspec['pending_count'] %></td>
+    <td><%= @rspec['failure_count'] %></td>
+    <td><%= @rspec['duration'] %></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>File Path</th>
+    <th>Severity</th>
+    <th>Message</th>
+    <th>Cop</th>
+  </tr>
+  <% count = 0 %>
+  <% if @rspec['examples'] %>
+    <% @rspec['examples'].each do |example| %>
+      <% if example['status'] != 'passed' %>
+        <tr>
+          <td><%= link_to_filename(example['file_path'], example['line_number']) %></td>
+          <td><%= example['status'] %></td>
+          <td><%= example['description'] %></td>
+          <td><%= example['full_description'] %></td>
+        </tr>
+        <tr>
+          <td><%= 'Exception' %></td>
+          <td><%= example['exception']['class'] %></td>
+          <td><%= example['exception']['message'] %></td>
+          <td>
+            <% if example['exception']['backtrace'] %>
+              <%= example['exception']['backtrace'].reject{|x| x =~ %r(\.rvm) }%>
+            <% end %>
+          </td>
+        </tr>
+        <% count += 1 %>
+      <% end %>
+    <% end %>
+  <% end %>
+</table>
+
+<%= render_partial 'report_footer' %>
