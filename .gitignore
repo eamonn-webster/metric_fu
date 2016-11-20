@@ -24,3 +24,5 @@ tags
 # rvm
 .ruby-version
 .ruby-gemset
+
+.overcommit.yml

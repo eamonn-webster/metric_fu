@@ -178,7 +178,7 @@ describe MetricFu::Template do
       it "returns a link with that absolute path" do
         name = "/some/file.rb"
         result = @template.send(:link_to_filename, name)
-        expect(result).to eq("<a href='file:///some/file.rb'>/some/file.rb</a>")
+        expect(result).to match("<a href='file://(.:)?/some/file.rb'>/some/file.rb</a>")
       end
     end
 

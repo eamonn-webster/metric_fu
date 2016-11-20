@@ -37,7 +37,7 @@ gemspec path: File.expand_path("..", __FILE__)
 
 platform :jruby do
   group :jruby do
-    gem "jruby-openssl", "~> 0.8.5"
+    gem "jruby-openssl", "~> 0.9.17"
   end
 end
 
@@ -65,6 +65,5 @@ group :guard do
 
   # notification handling
   gem "libnotify",               "~> 0.8.0", require: false
-  gem "rb-notifu",               "~> 0.0.4", require: false
   gem "terminal-notifier-guard", "~> 1.5.3", require: false
 end

@@ -124,7 +124,7 @@ module MetricFu
     end
 
     def self.not_implemented
-      raise <<-EOF
+      raise NotImplementedError.new <<-EOF
         Required method #{caller[0]} not implemented in #{__FILE__}.
         This method must be implemented by a concrete class descending
         from Generator.  See generator class documentation for more
