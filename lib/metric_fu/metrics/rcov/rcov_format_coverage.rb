@@ -35,6 +35,7 @@ module MetricFu
           RCovLine.new(raw_line[3..-1], covered_line).to_h
         end
         content.reject! { |line| line[:content].to_s == "" }
+        content.reject! { |line| line[:was_run].nil? }
         files[fname] = { lines: content }
       end
       files
@@ -102,6 +103,7 @@ module MetricFu
       end
 
       def add_method_data(test_coverage)
+        return
         test_coverage.each_pair do |file_path, info|
           file_contents = ""
           coverage = []
