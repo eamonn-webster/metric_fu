@@ -43,7 +43,10 @@ module MetricFu
     def analyze
       rcov_text = load_output
       formatter = MetricFu::RCovFormatCoverage.new(rcov_text)
-      @rcov = formatter.to_h
+      @rcov = {}
+      @rcov[:files] = formatter.to_h
+      @rcov[:global_percent_run] = @rcov[:files].delete(:global_percent_run)
+      @rcov[:primary] = @rcov[:global_percent_run]
     end
 
     def to_h

@@ -30,7 +30,8 @@ module MetricFu
         target << [reason: reason, matches: lines_info]
       end
       {
-        total_score: total_score,
+          total_score: total_score,
+          primary: total_score,
         matches: target.flatten
       }
     end

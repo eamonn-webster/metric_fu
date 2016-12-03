@@ -32,7 +32,7 @@ module MetricFu
     end
 
     def to_h
-      { reek: { matches: @matches } }
+      { reek: { primary: @matches.size, matches: @matches } }
     end
 
     def per_file_info(out)
