@@ -222,13 +222,17 @@ module MetricFu
     # as it's processed in the context of
     # the binding of this class
     def metric_links
-      @metrics.keys.map { |metric| metric_link(metric.to_s) }
+      @metrics.map { |name, data| metric_link(name.to_s, data) }
     end
 
-    def metric_link(metric)
+    def metric_link(name, data)
+      # unless data[:primary]
+      #   puts "---------------------------------------------- #{name} ----------------------------------------------"
+      #   puts data.keys
+      # end
       <<-LINK
-      <a href="#{metric}.html">
-        #{snake_case_to_title_case(metric)}
+      <a href="#{name}.html">
+        #{snake_case_to_title_case(name)} - #{data[:primary]}
       </a>
       LINK
     end

@@ -33,6 +33,7 @@ module MetricFu
       summary.each do |k, v|
         results[k] = v
       end
+      results[:primary] = summary['offense_count']
       { rubocop: results }
     end
   end

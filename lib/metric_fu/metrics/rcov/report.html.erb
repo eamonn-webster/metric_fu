@@ -21,7 +21,7 @@
     <th>Percent run</th>
   </tr>
   <% count = 0 %>
-  <% @rcov.sort_by{ |k,v| v[:percent_run] }.each do |fname, file| %>
+  <% @rcov[:files].sort_by{ |k,v| v[:percent_run] }.each do |fname, file| %>
     <tr>
       <td><a href="#<%= fname.gsub(/[^a-z]+/, '_') %>"><%= fname %></a></td>
       <td><%= file[:percent_run] %></td>
@@ -30,7 +30,7 @@
   <% end %>
 </table>
 
-<% @rcov.sort_by{ |k,v| v[:percent_run] }.each do |fname, file| %>
+<% @rcov[:files].sort_by{ |k,v| v[:percent_run] }.each do |fname, file| %>
   <% if file[:percent_run] < 100 %>
     <h2 id="<%= fname.gsub(/[^a-z]+/, '_') %>"> <%= fname %> <%= file[:percent_run] %>%</h2>
     <div class="rcov_overflow">
