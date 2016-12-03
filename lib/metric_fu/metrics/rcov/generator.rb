@@ -46,6 +46,7 @@ module MetricFu
       @rcov = {}
       @rcov[:files] = formatter.to_h
       @rcov[:global_percent_run] = @rcov[:files].delete(:global_percent_run)
+      @rcov[:lines_missed] = @rcov[:files].delete(:lines_missed)
       @rcov[:primary] = @rcov[:global_percent_run]
     end
 
