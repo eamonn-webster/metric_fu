@@ -31,7 +31,7 @@ module MetricFu
                else
                  ((e - (p + f)) * 100.0)/e
                end
-      summary['passed'] = passed.round(2)
+      summary['passed'] = passed.round(3)
     end
 
     # @param args [Hash] rspec metric run options

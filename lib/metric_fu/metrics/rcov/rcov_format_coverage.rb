@@ -98,7 +98,8 @@ module MetricFu
       def add_global_percent_run(test_coverage, total_lines, total_lines_run)
         percentage = self.class.floating_percent(total_lines_run, total_lines)
         test_coverage.update(
-          global_percent_run: round_to_tenths(percentage)
+          global_percent_run: round_to_tenths(percentage),
+          lines_missed: total_lines - total_lines_run
         )
       end
 
@@ -144,7 +145,7 @@ module MetricFu
 
       def round_to_tenths(decimal)
         decimal = 0.0 if decimal.to_s.eql?("NaN")
-        (decimal * 10).round / 10.0
+        decimal.round(4)
       end
     end
   end
