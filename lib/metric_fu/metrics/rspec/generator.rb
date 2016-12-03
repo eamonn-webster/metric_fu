@@ -44,8 +44,9 @@ module MetricFu
       summary = results.delete('summary')
       passed(summary)
       summary.each do |k, v|
-         results[k] = v
+        results[k] = v
       end
+      results[:primary] = summary['passed']
       { rspec: results }
     end
   end

@@ -47,6 +47,7 @@ module MetricFu
         mf_log "Unexpected code to test ratio #{matched_numbers.inspect} over directories #{dirs.inspect}"
         @stats[:code_to_test_ratio] = 0.0
       end
+      @stats[:primary] = @stats[:code_to_test_ratio]
     end
 
     def set_granular_stats(lines)

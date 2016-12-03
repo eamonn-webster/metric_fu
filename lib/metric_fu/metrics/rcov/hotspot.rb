@@ -23,7 +23,7 @@ class MetricFu::RcovHotspot < MetricFu::Hotspot
 
   def generate_records(data, table)
     return if data == nil
-    data.each do |file_name, info|
+    data[:files].each do |file_name, info|
       next if (file_name == :global_percent_run) || (info[:methods].nil?)
       info[:methods].each do |method_name, percentage_uncovered|
         location = MetricFu::Location.for(method_name)

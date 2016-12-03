@@ -23,7 +23,7 @@ module MetricFu
     end
 
     def to_h
-      { cane: { total_violations: @total_violations, violations: @violations } }
+      { cane: { total_violations: @total_violations, primary: @total_violations, violations: @violations } }
     end
 
     private

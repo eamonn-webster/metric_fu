@@ -37,6 +37,7 @@ module MetricFu
       sorted_containers = @method_containers.values.sort_by(&:highest_score).reverse
       { flog: { total: @flogger.total_score,
                 average: @flogger.average,
+                primary: @flogger.average.round(3),
                 method_containers: sorted_containers.map(&:to_h) } }
     end
 
