@@ -34,6 +34,9 @@ module MetricFu
       Dir[File.join(template_directory, "javascripts", "*")].each do |f|
         FileUtils.cp(f, File.join(output_directory, File.basename(f)))
       end
+      Dir[File.join(template_directory, "images", "*")].each do |f|
+        FileUtils.cp(f, File.join(output_directory, File.basename(f)))
+      end
     end
 
     def write_section(section, contents)
