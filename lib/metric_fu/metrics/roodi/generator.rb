@@ -22,10 +22,7 @@ module MetricFu
         problem = match[1]
         { file: file, line: line, problem: problem }
       end
-      if total.first =~ /Found ([0-9]+) errors/
-       count = $1.to_i
-      end
-      @roodi_results = { total: total, primary: count, problems: @matches }
+      @roodi_results = { total: total, primary: @matches.size, problems: @matches }
     end
 
     def to_h

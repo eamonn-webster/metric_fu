@@ -32,7 +32,7 @@ module MetricFu
     end
 
     def to_h
-      { reek: { primary: @matches.size, matches: @matches } }
+      { reek: { primary: @matches.map{|m| m[:code_smells].size}.reduce(:+), matches: @matches } }
     end
 
     def per_file_info(out)
