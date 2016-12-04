@@ -16,11 +16,21 @@ module MetricFu
     end
 
     def enable
-      super
+      if results_file?
+        super
+      else
+        mf_debug("Rspec is not available. See README")
+      end
     end
 
     def activate
       super
+    end
+
+    def results_file?
+      results_file = 'tmp/rspec.json'
+      File.exist?(results_file) # ||
+      # mf_log("Rspec file #{results_file.inspect} does not exist")
     end
   end
 end
