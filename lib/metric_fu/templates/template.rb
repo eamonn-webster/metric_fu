@@ -175,12 +175,25 @@ module MetricFu
       str
     end
 
+    def render_as_instaweb_protocol?
+      true
+    end
+
     def file_url(name, line) # :nodoc:
-      return "" unless name
+      return '' if name.nil? || name.empty?
       filename = complete_file_path(name)
+      if File.directory?(filename)
+      elsif File.exist?(filename)
+      else
+        filename = complete_file_path("../#{name}")
+      end
 
       if render_as_txmt_protocol?
-        "txmt://open/?url=file://#{filename}" << (line ? "&line=#{line}" : "")
+        "txmt://open/?url=file://#{filename}" << (line ? "&line=#{line}" : '')
+      elsif render_as_instaweb_protocol?
+        git_path = filename.sub(git_root, '')
+        git_hash = git_hash(filename)
+        "http://127.0.0.1:1234/?p=.git;a=blob;f=#{git_path};h=#{git_hash}"  << (line ? "#l#{line}" : '')
       else
         link_prefix = MetricFu.configuration.templates_option("link_prefix")
         if link_prefix == MetricFu::Templates::Configuration::FILE_PREFIX
@@ -190,6 +203,18 @@ module MetricFu
         end
         "#{link_prefix}/#{path}"
       end
+    end
+
+    def git_hash(filename)
+      `git hash-object #{filename}`.chomp
+    end
+
+    def git_head
+      `git rev-parse HEAD`.chomp
+    end
+
+    def git_root
+      `git rev-parse --show-toplevel`.chomp + '/'
     end
 
     def complete_file_path(filename)
