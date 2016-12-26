@@ -144,6 +144,11 @@ module MetricFu
       (decimal * 10).round / 10.0
     end
 
+    def round_to_places(decimal, places)
+      decimal = 0.0 if decimal.to_s.eql?("NaN")
+      decimal.round(places)
+    end
+
     def link_content(name, line = nil, link_content = nil) # :nodoc:
       if link_content
         link_content

@@ -28,8 +28,8 @@ module MetricFu
 
     def data
       [
-        ["average", @flog_average.join(",")],
-        ["top 5% average", @top_five_percent_average.join(",")]
+        ["average", @flog_average.map{|a| a.round(4)}.join(",")],
+        ["top 5% average", @top_five_percent_average.map{|a| a.round(4)}.join(",")]
       ]
     end
 
