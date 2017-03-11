@@ -58,7 +58,7 @@ module MetricFu
       # TODO: do something with the stderr
       # for now, just acknowledge we got it
       unless stderr.empty?
-        STDERR.puts "STDERR from #{gem_name}:\n#{stderr}"
+        # STDERR.puts "STDERR from #{gem_name}:\n#{stderr}"
       end
       # TODO: status.success? is not reliable for distinguishing
       # between a successful run of the metric and problems
