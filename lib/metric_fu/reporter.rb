@@ -13,12 +13,12 @@ module MetricFu
     end
 
     def start_metric(metric)
-      mf_log "** STARTING METRIC #{metric}"
+      mf_log "#{Time.now} STARTING METRIC #{metric}"
       notify :start_metric, metric
     end
 
     def finish_metric(metric)
-      mf_log "** ENDING METRIC #{metric}"
+      mf_log "#{Time.now} ENDING METRIC #{metric}"
       notify :finish_metric, metric
     end
 
