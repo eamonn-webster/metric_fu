@@ -67,3 +67,8 @@ group :guard do
   gem "libnotify",               "~> 0.8.0", require: false
   gem "terminal-notifier-guard", "~> 1.5.3", require: false
 end
+
+group :eweb do
+  gem 'flog', '4.3.2', git: 'https://github.com/eamonn-webster/flog.git', branch: 'flogignore', require: false
+  gem 'rubocop', require: false
+end
