@@ -15,6 +15,7 @@
 </p>
 
 <p>Total Coverage: <%= @rcov.delete(:global_percent_run) %>% </p>
+<% if false %>
 <table>
   <tr>
     <th>File Path</th>
@@ -43,6 +44,7 @@
       <% end %>
       </table>
     </div>
+  <% end %>
   <% end %>
 <% end %>
 
