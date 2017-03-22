@@ -40,8 +40,8 @@ module MetricFu
       # @note passing in false to report will return a hash
       #    instead of the default String
       # ::Rspec::RspecCalculator.new(args).report(false)
-      results = JSON.load(File.read('tmp/rspec.json'))
-      summary = results.delete('summary')
+      results = JSON.load(File.read('tmp/rspec.json')) || {}
+      summary = results.delete('summary') || {}
       passed(summary)
       summary.each do |k, v|
         results[k] = v
