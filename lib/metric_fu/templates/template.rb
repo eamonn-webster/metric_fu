@@ -188,6 +188,8 @@ module MetricFu
         filename = complete_file_path("../#{name}")
       end
 
+      line = line.to_i
+      line = nil if line == 0
       if render_as_txmt_protocol?
         "txmt://open/?url=file://#{filename}" << (line ? "&line=#{line}" : '')
       elsif render_as_instaweb_protocol?
