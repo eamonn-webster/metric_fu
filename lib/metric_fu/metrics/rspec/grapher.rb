@@ -62,7 +62,7 @@ module MetricFu
     def data
       [
         ["Passed", passes.join(",")],
-        # ["Duration", durations.join(",")],
+        ["Duration", durations.join(",")],
         # ["Examples", examples.join(",")],
         ["Failures", failures.join(",")],
         ["Pending", pendings.join(",")]
