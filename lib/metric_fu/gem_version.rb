@@ -12,7 +12,7 @@ module MetricFu
     REQUIREMENT_LIST = /(?<qr1>["'])(?<req1>#{REQUIREMENT})\k<qr1>(?:[ \t]*,[ \t]*(?<qr2>["'])(?<req2>#{REQUIREMENT})\k<qr2>)?/
     REQUIREMENTS = /(?:#{REQUIREMENT_LIST}|\[[ \t]*#{REQUIREMENT_LIST}[ \t]*\])/
     COMMENT = /(#[^\n]*)?/
-    ADD_DEPENDENCY_CALL = /^[ \t]*\w+\.add(?<type>_runtime|_development)?_dependency\(?[ \t]*#{QUOTED_GEM_NAME}(?:[ \t]*,[ \t]*#{REQUIREMENTS})?[ \t]*\)?[ \t]*#{COMMENT}$/
+    ADD_DEPENDENCY_CALL = /^[ \t]*\w+\.add(?<type>_runtime|_development)?_dependency\(?[ \t]*#{QUOTED_GEM_NAME}(.freeze)?(?:[ \t]*,[ \t]*#{REQUIREMENTS})?[ \t]*\)?[ \t]*#{COMMENT}$/
 
     def initialize
       @gem_spec = File.open(gemspec, "rb") { |f| f.readlines }

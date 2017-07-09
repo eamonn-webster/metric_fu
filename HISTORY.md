@@ -4,13 +4,23 @@ Each change should fall into categories that would affect whether the release is
 
 As such, a _Feature_ would map to either major (breaking change) or minor. A _bug fix_ to a patch.  And _misc_ is either minor or patch, the difference being kind of fuzzy for the purposes of history.  Adding tests would be patch level.
 
-### Master [changes](https://github.com/metricfu/metric_fu/compare/v4.12.0...master)
+### Unreleased
 
 * Breaking Changes
 * Features
+  * Setup CI pipeline on AppVeyor and fixed specs. (Rasmus Bergholdt, #285, fixes #284)
+  * Upgraded roodi to v5.0.0 (Jonathan Keam, #287)
+  * Updated jruby-openssl and removed unused rb-notifu gem (Jonathan Keam, #290)
 * Fixes
-* Misc
+  * Rails best practices options (Noah S-W, #264, #263)
   * Fix deprecation warnings for Dir.exists? (Jared Szechy, #269)
+  * Fix specs (Luciano Sousa, #270)
+  * Fixed broken dependencies (Jonathan Keam, #279)
+  * FlogCli.flog must receive an expanded list of files (Rasmus Bergholdt, #282, fixes #273)
+  * Fix test warnings (Jonathan Keam, #289, addresses #288)
+* Misc
+  * Add a Gitter chat badge to README.md (#259)
+
 
 ### [4.12.0](https://github.com/metricfu/metric_fu/compare/v4.11.4...v4.12.0)
 
