@@ -56,13 +56,26 @@ module MetricFu
     private
 
     def files_to_flog
-      options[:dirs_to_flog].flatten.map do |p|
+      includes = options[:dirs_to_flog].flatten.map do |p|
+        next if p[0] == '-'
         if File.directory? p then
           Dir[File.join(p, '**/*.{rb,rake}')]
         else
           p
         end
       end.flatten
+      excludes = options[:dirs_to_flog].flatten.map do |p|
+        next unless p[0] == '-'
+        p = p[1..-1]
+        if File.directory? p then
+          Dir[File.join(p, '**/*.{rb,rake}')]
+        elsif p['*']
+          Dir[p]
+        else
+          p
+        end
+      end.flatten
+      includes - excludes
     end
   end
 
