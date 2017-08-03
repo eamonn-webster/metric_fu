@@ -5,7 +5,9 @@ module MetricFu
     end
 
     def default_run_options
-      { dirs_to_flog: MetricFu::Io::FileSystem.directory("code_dirs"), continue: true, all: true, quiet: true  }
+      dirs_to_flog = MetricFu::Io::FileSystem.directory("code_dirs") +
+                     MetricFu::Io::FileSystem.file_globs_to_ignore.map{|dir| '-' + dir}
+      { dirs_to_flog: dirs_to_flog, continue: true, all: true, quiet: true }
     end
 
     def has_graph?
