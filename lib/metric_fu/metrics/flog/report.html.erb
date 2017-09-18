@@ -50,7 +50,11 @@ function sort_table(tbody, col) {
   <tbody id="the-table">
     <% @flog[:method_containers].each do |method_container| %>
     <tr>
-      <td><a href="#<%= method_container[:path].gsub(/[^a-z]+/, '_') %>"><%= method_container[:path] %></a></td>
+      <% if method_container[:path].empty? %>
+        <td><a href="#<%= method_container[:name].gsub(/[^a-z]+/, '_') %>"><%= method_container[:name] %></a></td>
+      <% else %>
+        <td><a href="#<%= method_container[:path].gsub(/[^a-z]+/, '_') %>"><%= method_container[:path] %></a></td>
+      <% end %>
       <td><%= round_to_tenths  method_container[:total_score] %></td>
       <td><%= method_container[:methods].size %></td>
       <td><%= round_to_tenths method_container[:average_score] %></td>
@@ -61,7 +65,11 @@ function sort_table(tbody, col) {
 </table>
 
 <% @flog[:method_containers].each do |method_container| %>
-  <h2 id="<%= method_container[:path].gsub(/[^a-z]+/, '_') %>"><%= link_to_filename(method_container[:path]) %></h2>
+  <% if method_container[:path].empty? %>
+    <h2 id="<%= method_container[:name].gsub(/[^a-z]+/, '_') %>"></h2>
+  <% else %>
+    <h2 id="<%= method_container[:path].gsub(/[^a-z]+/, '_') %>"><%= link_to_filename(method_container[:path]) %></h2>
+  <% end %>
 
     <% method_container[:methods].each do |full_method_name, method_info| %>
       <% path, line = method_info[:path].split(":") if method_info[:path] %>
