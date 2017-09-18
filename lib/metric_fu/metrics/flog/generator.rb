@@ -20,7 +20,11 @@ module MetricFu
       @method_containers = {}
       @flogger.calculate
       @flogger.each_by_score do |full_method_name, score, operators|
-        container_name = full_method_name.split("#").first
+        if full_method_name["#"]
+          container_name = full_method_name.split('#').first
+        else
+          container_name = full_method_name.split('::')[0..-2].join('::')
+        end
         path = @flogger.method_locations[full_method_name]
         if @method_containers[container_name]
           @method_containers[container_name].add_method(full_method_name, operators, score, path)
