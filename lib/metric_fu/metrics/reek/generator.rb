@@ -1,3 +1,12 @@
+#
+# File: generator.rb
+# Author: jscruggs
+# Copyright jscruggs, 2008-2018
+# Contents:
+#
+# Date:          Author:  Comments:
+#  3rd May 2018  eweb     #0008 save code smell counts
+#
 module MetricFu
   class ReekGenerator < Generator
     def self.metric
@@ -29,10 +38,13 @@ module MetricFu
         { file_path: file_path,
           code_smells: analyze_smells(smells) }
       end
+      analyze_smell_counts
     end
 
     def to_h
-      { reek: { primary: @matches.map{|m| m[:code_smells].size}.reduce(:+), matches: @matches } }
+      { reek: { primary: @matches.map{|m| m[:code_smells].size}.reduce(:+),
+                matches: @matches,
+                smell_counts: @smell_counts} }
     end
 
     def per_file_info(out)
@@ -56,6 +68,18 @@ module MetricFu
     end
 
     private
+
+    def analyze_smell_counts
+      @smell_counts = {}
+      @matches.each do |reek_chunk|
+        reek_chunk[:code_smells].each do |code_smell|
+          smell = code_smell[:type]
+          # speaking of code smell...
+          @smell_counts[smell] ||= 0
+          @smell_counts[smell] += 1
+        end
+      end
+    end
 
     def files_to_analyze
       dirs_to_reek = options[:dirs_to_reek]

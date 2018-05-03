@@ -26,3 +26,5 @@ tags
 .ruby-gemset
 
 .overcommit.yml
+/cos.sh
+*.old

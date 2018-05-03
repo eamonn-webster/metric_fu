@@ -1,3 +1,12 @@
+#
+# File: grapher.rb
+# Author: jscruggs
+# Copyright jscruggs, 2008-2018
+# Contents:
+#
+# Date:          Author:  Comments:
+#  3rd May 2018  eweb     #0008 use saved code smell counts
+#
 MetricFu.reporting_require { "graphs/grapher" }
 module MetricFu
   class ReekGrapher < Grapher
@@ -18,17 +27,26 @@ module MetricFu
         counter = @labels.size
         @labels.update(@labels.size => date)
 
-        metrics[:reek][:matches].each do |reek_chunk|
-          reek_chunk[:code_smells].each do |code_smell|
-            # speaking of code smell...
-            @reek_count[code_smell[:type]] = [] if @reek_count[code_smell[:type]].nil?
-            if @reek_count[code_smell[:type]][counter].nil?
-              @reek_count[code_smell[:type]][counter] = 1
-            else
-              @reek_count[code_smell[:type]][counter] += 1
+        if metrics[:reek][:smell_counts]
+          metrics[:reek][:smell_counts].each do |smell, count|
+            @reek_count[smell] ||= []
+            @reek_count[smell][counter] = count
+          end
+        else
+          metrics[:reek][:matches].each do |reek_chunk|
+            reek_chunk[:code_smells].each do |code_smell|
+              # speaking of code smell...
+              @reek_count[code_smell[:type]] = [] if @reek_count[code_smell[:type]].nil?
+              if @reek_count[code_smell[:type]][counter].nil?
+                @reek_count[code_smell[:type]][counter] = 1
+              else
+                @reek_count[code_smell[:type]][counter] += 1
+              end
             end
           end
+          # puts ({date => {smell_counts: Hash[@reek_count.map { |k, v| [k, v[counter]] }]}}).to_yaml
         end
+        metrics
       end
     end
 

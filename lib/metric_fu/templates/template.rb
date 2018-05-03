@@ -1,3 +1,12 @@
+#
+# File: template.rb
+# Author: jscruggs
+# Copyright jscruggs, 2008-2018
+# Contents:
+#
+# Date:          Author:  Comments:
+#  3rd May 2018  eweb     #0008 cache git calls
+#
 require "erb"
 module MetricFu
   class Template
@@ -208,15 +217,16 @@ module MetricFu
     end
 
     def git_hash(filename)
-      `git hash-object #{filename}`.chomp
+      @git_hash ||= {}
+      @git_hash[filename] ||= `git hash-object #{filename}`.chomp
     end
 
     def git_head
-      `git rev-parse HEAD`.chomp
+      @git_head ||= `git rev-parse HEAD`.chomp
     end
 
     def git_root
-      `git rev-parse --show-toplevel`.chomp + '/'
+      @git_root ||= `git rev-parse --show-toplevel`.chomp + '/'
     end
 
     def complete_file_path(filename)

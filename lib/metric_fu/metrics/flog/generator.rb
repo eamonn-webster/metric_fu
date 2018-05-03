@@ -1,3 +1,12 @@
+#
+# File: generator.rb
+# Author: jscruggs
+# Copyright jscruggs, 2008-2018
+# Contents:
+#
+# Date:          Author:  Comments:
+#  3rd May 2018  eweb     #0008 save top 5 percent average
+#
 require "pathname"
 require "optparse"
 
@@ -38,11 +47,11 @@ module MetricFu
     end
 
     def to_h
-      sorted_containers = @method_containers.values.sort_by(&:highest_score).reverse
       { flog: { total: @flogger.total_score,
                 average: @flogger.average,
+                top_5_average: calc_top_five_percent_average,
                 primary: @flogger.average.round(3),
-                method_containers: sorted_containers.map(&:to_h) } }
+                method_containers: sorted_containers } }
     end
 
     def per_file_info(out)
@@ -59,10 +68,31 @@ module MetricFu
 
     private
 
+    def calc_top_five_percent_average
+      method_scores = @method_containers.values.inject([]) do |scores, container|
+        scores + container.methods.values.map { |v| v[:score] }
+      end
+      method_scores.sort!.reverse!
+
+      five_percent_of_methods = (method_scores.size * 0.05).ceil
+
+      total_for_five_percent =
+        method_scores[0...five_percent_of_methods].inject(0) { |total, score| total + score }
+      if five_percent_of_methods == 0
+        0.0
+      else
+        total_for_five_percent / five_percent_of_methods.to_f
+      end
+    end
+
+    def sorted_containers
+      @method_containers.values.sort_by(&:highest_score).reverse.map(&:to_h)
+    end
+
     def files_to_flog
       includes = options[:dirs_to_flog].flatten.map do |p|
         next if p[0] == '-'
-        if File.directory? p then
+        if File.directory? p
           Dir[File.join(p, '**/*.{rb,rake}')]
         else
           p
@@ -71,7 +101,7 @@ module MetricFu
       excludes = options[:dirs_to_flog].flatten.map do |p|
         next unless p[0] == '-'
         p = p[1..-1]
-        if File.directory? p then
+        if File.directory? p
           Dir[File.join(p, '**/*.{rb,rake}')]
         elsif p['*']
           Dir[p]
@@ -121,7 +151,7 @@ module MetricFu
     end
 
     def total_score
-      @total_score ||= method_scores.inject(0) { |sum, score| sum += score }
+      @total_score ||= method_scores.inject(0) { |sum, score| sum + score }
     end
 
     def average_score
