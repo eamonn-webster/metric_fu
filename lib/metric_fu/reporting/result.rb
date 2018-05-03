@@ -1,3 +1,12 @@
+#
+# File: result.rb
+# Author: jscruggs
+# Copyright jscruggs, 2008-2018
+# Contents:
+#
+# Date:          Author:  Comments:
+#  3rd May 2018  eweb     #0008 don't generate files
+#
 module MetricFu
   # MetricFu.result memoizes access to a Result object, that will be
   # used throughout the lifecycle of the MetricFu app.
@@ -47,7 +56,7 @@ module MetricFu
 
       result_hash.merge!(generator.generate_result)
 
-      generator.per_file_info(per_file_data) if generator.respond_to?(:per_file_info)
+      # generator.per_file_info(per_file_data) if generator.respond_to?(:per_file_info)
     end
 
     private
