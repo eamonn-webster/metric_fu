@@ -46,7 +46,11 @@ module MetricFu
       summary.each do |k, v|
         results[k] = v
       end
-      results[:primary] = summary['passed']
+      if summary['example_count'].to_i == 0
+        results[:primary] = 'ERROR'
+      else
+        results[:primary] = summary['passed']
+      end
       { rspec: results }
     end
   end
