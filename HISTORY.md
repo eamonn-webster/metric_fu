@@ -4,6 +4,13 @@ Each change should fall into categories that would affect whether the release is
 
 As such, a _Feature_ would map to either major (breaking change) or minor. A _bug fix_ to a patch.  And _misc_ is either minor or patch, the difference being kind of fuzzy for the purposes of history.  Adding tests would be patch level.
 
+### [Unreleased](https://github.com/metricfu/metric_fu/compare/v4.13.1...master)
+* Breaking Changes
+* Features
+* Fixes
+* Misc
+  * eweb personal changes
+
 ### [Unreleased](https://github.com/metricfu/metric_fu/compare/v4.13.0...master)
 
 * Breaking Changes
