@@ -48,6 +48,8 @@ module MetricFu
       end
       if summary['example_count'].to_i == 0
         results[:primary] = 'ERROR'
+      elsif results['status'] == 'failure'
+        results[:primary] = 'ERROR'
       else
         results[:primary] = summary['passed']
       end
