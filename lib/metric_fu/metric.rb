@@ -89,11 +89,11 @@ module MetricFu
     end
 
     def self.enabled_metrics
-      metrics.select { |metric| metric.enabled && metric.activated }.sort_by { |metric| metric.name  == :hotspots ? 1 : 0 }
+      metrics.select { |metric| metric.enabled && metric.activated }.demote(:hotspots)
     end
 
     def self.get_metric(name)
-      metrics.find { |metric|metric.name.to_s == name.to_s }
+      metrics.find { |metric| metric.name.to_s == name.to_s }
     end
 
     def self.inherited(subclass)
@@ -135,9 +135,25 @@ module MetricFu
       paths = []
       paths << generator_path = "#{name}/generator"
       if has_graph?
-        paths << grapher_path   = "#{name}/grapher"
+        paths << grapher_path = "#{name}/grapher"
       end
       paths
     end
+  end
+end
+
+class Array
+  def promote(value)
+    if (found = delete(value))
+      unshift(found)
+    end
+    self
+  end
+
+  def demote(value)
+    if (found = delete(value))
+      push(found)
+    end
+    self
   end
 end
