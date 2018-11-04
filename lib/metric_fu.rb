@@ -77,6 +77,22 @@ module MetricFu
     Time.now.localtime
   end
 
+  def current_commit
+    "#{git_branch} @ #{git_commit}#{clean_commit}"
+  end
+
+  def git_commit
+    @git_commit ||= `git rev-parse --short HEAD`.chomp
+  end
+
+  def git_branch
+    @git_branch ||= `git rev-parse --abbrev-ref HEAD`.chomp
+  end
+
+  def clean_commit
+    @clean_commit ||= `git status --short`.chomp.empty? ? '' : '*'
+  end
+
   def root_dir
     APP_ROOT
   end
