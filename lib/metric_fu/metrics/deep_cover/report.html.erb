@@ -1,0 +1,58 @@
+<h3>DeepCover Results</h3>
+
+<%= render_partial 'graph', {:graph_name => 'deep_cover'} %>
+
+<p>
+</p>
+
+<p>
+<a href="../../../tmp/deep_cover.html" target="deep_cover">Results</a>
+</p>
+
+<table>
+  <tr>
+    <th>branches_executed</th>
+    <th>branches_not_executed</th>
+    <th>branch_percent</th>
+  </tr>
+  <tr>
+    <td><%= @deep_cover[:branches_executed] %></td>
+    <td><%= @deep_cover[:branches_not_executed] %></td>
+    <td><%= @deep_cover[:branch_percent] %></td>
+  </tr>
+</table>
+
+<!-- table>
+  <tr>
+    <th>File Path</th>
+    <th>Severity</th>
+    <th>Message</th>
+    <th>Cop</th>
+  </tr>
+  <% count = 0 %>
+  <% if @deep_cover['examples'] %>
+    <% @deep_cover['examples'].each do |example| %>
+      <% if example['status'] != 'passed' %>
+        <tr>
+          <td><%= link_to_filename(example['file_path'], example['line_number']) %></td>
+          <td><%= example['status'] %></td>
+          <td><%= example['description'] %></td>
+          <td><%= example['full_description'] %></td>
+        </tr>
+        <tr>
+          <td><%= 'Exception' %></td>
+          <td><%= example['exception']['class'] %></td>
+          <td><%= example['exception']['message'] %></td>
+          <td>
+            <% if example['exception']['backtrace'] %>
+              <%= example['exception']['backtrace'].reject{|x| x =~ %r(\.rvm) }%>
+            <% end %>
+          </td>
+        </tr>
+        <% count += 1 %>
+      <% end %>
+    <% end %>
+  <% end %>
+</table -->
+
+<%= render_partial 'report_footer' %>
