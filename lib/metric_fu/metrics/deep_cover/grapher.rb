@@ -16,15 +16,15 @@ module MetricFu
     end
 
     def branches_executed(metrics)
-      metrics[:deep_cover][:branches_executed].to_i
+      metrics[:deep_cover][:branches_executed]
     end
 
     def branches_not_executed(metrics)
-      metrics[:deep_cover][:branches_not_executed].to_i
+      metrics[:deep_cover][:branches_not_executed]
     end
 
     def branch_percent(metrics)
-      metrics[:deep_cover][:branch_percent].to_i
+      metrics[:deep_cover][:branch_percent]
     end
 
     def get_metrics(metrics, date)
