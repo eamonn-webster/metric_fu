@@ -1,0 +1,30 @@
+<h3>Cyclic Dependency Results</h3>
+
+<%= render_partial 'graph', {:graph_name => 'cycles'} %>
+
+<p>Cyclic Dependency Results</p>
+<table>
+  <tr>
+    <th>Cycles</th>
+  </tr>
+  <tr>
+    <td><%= @cycles[:total] %></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Cycle</th>
+    <th>File 1</th>
+    <th>File 2</th>
+  </tr>
+  <% @cycles[:cycles].each do |line| %>
+    <tr>
+      <td><%= line[:object] %></td>
+      <td><%= link_to_filename(line[:file1]) %></td>
+      <td><%= link_to_filename(line[:file2]) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= render_partial 'report_footer' %>
