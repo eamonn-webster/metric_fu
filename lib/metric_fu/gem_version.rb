@@ -31,6 +31,8 @@ module MetricFu
         begin
           @gem_spec.grep(/add_dependency|add_runtime/).map do |line|
             match = line.match(ADD_DEPENDENCY_CALL)
+            next unless match
+
             name = match["name"].downcase.sub("metric_fu-", "")
             version = [match["req1"], match["req2"]].compact
             new_dependency(name, version)
