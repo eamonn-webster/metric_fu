@@ -1,4 +1,5 @@
 require "launchy"
+require "uri"
 MetricFu.formatter_require { "yaml" }
 MetricFu.reporting_require { "graphs/graph" }
 module MetricFu
