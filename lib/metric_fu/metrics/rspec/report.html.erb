@@ -27,9 +27,9 @@
 <table>
   <tr>
     <th>File Path</th>
-    <th>Severity</th>
+    <th>Status</th>
     <th>Message</th>
-    <th>Cop</th>
+    <th>Exception</th>
   </tr>
   <% count = 0 %>
   <% if @rspec['examples'] %>
@@ -41,6 +41,7 @@
           <td><%= example['description'] %></td>
           <td><%= example['full_description'] %></td>
         </tr>
+	<% next unless example['exception'] %>
         <tr>
           <td><%= 'Exception' %></td>
           <td><%= example['exception']['class'] %></td>
