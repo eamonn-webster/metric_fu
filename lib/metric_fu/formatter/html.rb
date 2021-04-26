@@ -89,7 +89,8 @@ module MetricFu
       #   The directory path where the 'index.html' we want to open is
       #   stored
       def show_in_browser(dir)
-        uri = URI.join(URI.escape("file://#{dir}/"), "index.html")
+        escaped_dir = dir.to_s.sub(' ', '%20')
+        uri = URI.join("file://#{escaped_dir}/", "index.html")
         Launchy.open(uri) if open_in_browser?
       end
     end
