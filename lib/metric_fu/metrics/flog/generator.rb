@@ -50,7 +50,7 @@ module MetricFu
       { flog: { total: @flogger.total_score,
                 average: @flogger.average,
                 top_5_average: calc_top_five_percent_average,
-                primary: @flogger.average.round(3),
+                primary: @flogger.average.round(4),
                 method_containers: sorted_containers } }
     end
 
