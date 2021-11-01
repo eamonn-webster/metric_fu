@@ -42,7 +42,7 @@ module MetricFu
     end
 
     def to_h
-      { reek: { primary: @matches.map{|m| m[:code_smells].size}.reduce(:+).to_i,
+      { reek: { primary: @smell_counts['Total'],
                 matches: @matches,
                 smell_counts: @smell_counts} }
     end
@@ -70,13 +70,14 @@ module MetricFu
     private
 
     def analyze_smell_counts
-      @smell_counts = {}
+      @smell_counts = {'Total' => 0}
       @matches.each do |reek_chunk|
         reek_chunk[:code_smells].each do |code_smell|
           smell = code_smell[:type]
           # speaking of code smell...
           @smell_counts[smell] ||= 0
           @smell_counts[smell] += 1
+          @smell_counts['Total'] += 1
         end
       end
     end
