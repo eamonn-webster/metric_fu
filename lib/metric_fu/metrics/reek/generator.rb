@@ -42,7 +42,7 @@ module MetricFu
     end
 
     def to_h
-      { reek: { primary: @matches.map{|m| m[:code_smells].size}.reduce(:+),
+      { reek: { primary: @matches.map{|m| m[:code_smells].size}.reduce(:+).to_i,
                 matches: @matches,
                 smell_counts: @smell_counts} }
     end
