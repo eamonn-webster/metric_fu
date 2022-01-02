@@ -1,3 +1,5 @@
+require 'flay'
+
 module MetricFu
   class FlayGenerator < Generator
     def self.metric
@@ -5,8 +7,16 @@ module MetricFu
     end
 
     def emit
-      args =  "#{minimum_duplication_mass} #{dirs_to_flay}"
-      @output = run!(args)
+      args = []
+      flay_mass = options[:minimum_score]
+      if flay_mass
+        args += ['--mass', flay_mass.to_s]
+      end
+
+      args += options[:dirs_to_flay]
+      results = StringIO.new
+      Flay.run(args).report(results)
+      @output = results.string
     end
 
     def analyze
