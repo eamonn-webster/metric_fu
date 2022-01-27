@@ -4,6 +4,7 @@ source "https://rubygems.org"
 if RUBY_VERSION >= '1.9.3'
   gem "rubocop", platforms: :mri, groups: [:test, :local_development]
   gem "activesupport", "~> 4.2"
+  gem 'flog', github: 'eamonn-webster/flog', require: false
 
   if RUBY_VERSION > '2.3'
     gem "json", ">= 2.0"
@@ -55,25 +56,4 @@ end
 group :development do
   gem "rake",  "~> 10.1.0"
   gem "yard",  "~> 0.8.7", group: :yard
-end
-
-group :guard do
-  gem "guard",         "~> 1.8.1"
-  gem "guard-bundler", "~> 1.0.0"
-  gem "guard-rspec"
-
-  # file system change event handling
-  gem "listen",     "~> 1.3.0"
-  gem "rb-fchange", "~> 0.0.6", require: false
-  gem "rb-fsevent", "~> 0.9.3", require: false
-  gem "rb-inotify", "~> 0.9.0", require: false
-
-  # notification handling
-  gem "libnotify",               "~> 0.8.0", require: false
-  gem "terminal-notifier-guard", "~> 1.5.3", require: false
-end
-
-group :eweb do
-  gem 'flog', '4.3.2', git: 'https://github.com/eamonn-webster/flog.git', branch: 'flogignore', require: false
-  gem 'rubocop', require: false
 end
