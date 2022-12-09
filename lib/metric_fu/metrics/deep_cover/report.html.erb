@@ -14,11 +14,23 @@
     <th>branches_executed</th>
     <th>branches_not_executed</th>
     <th>branch_percent</th>
+    <th>nodes_executed</th>
+    <th>nodes_not_executed</th>
+    <th>node_percent</th>
+    <th>chars_executed</th>
+    <th>chars_not_executed</th>
+    <th>char_percent</th>
   </tr>
   <tr>
     <td><%= @deep_cover[:branches_executed] %></td>
     <td><%= @deep_cover[:branches_not_executed] %></td>
     <td><%= @deep_cover[:branch_percent] %></td>
+    <td><%= @deep_cover[:nodes_executed] %></td>
+    <td><%= @deep_cover[:nodes_not_executed] %></td>
+    <td><%= @deep_cover[:node_percent] %></td>
+    <td><%= @deep_cover[:chars_executed] %></td>
+    <td><%= @deep_cover[:chars_not_executed] %></td>
+    <td><%= @deep_cover[:char_percent] %></td>
   </tr>
 </table>
 

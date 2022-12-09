@@ -40,7 +40,7 @@ module MetricFu
       details[0].each do |k, v|
         results[k.to_sym] = v
       end
-      results[:primary] = results[:branch_percent]
+      results[:primary] = [results[:branch_percent], results[:node_percent], results[:char_percent]].min
       # if summary['example_count'].to_i == 0
       #   results[:primary] = 'ERROR'
       # elsif results['status'] == 'failure'
