@@ -22,7 +22,7 @@ class SimpleCov::Formatter::MetricFu
   attr_writer :coverage_file_path
 
   def coverage_file_path
-    @coverage_file_path || self.coverage_file_path = default_coverage_file_path
+    @coverage_file_path ||= default_coverage_file_path
   end
 
   def default_coverage_file_path
@@ -50,6 +50,11 @@ class SimpleCov::Formatter::MetricFu
     end
 
     def format
+      {line_coverage: {covered: @result.covered_lines, total: @result.total_lines},
+       branch_coverage: {covered: @result.covered_branches, total: @result.total_branches}}.to_json
+    end
+
+    def format2
       content = "metric_fu shift the first line\n"
       @result.source_files.each do |source_file|
         content << "=" * 80

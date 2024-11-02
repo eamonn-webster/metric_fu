@@ -8,6 +8,37 @@ module MetricFu
     end
 
     def to_h
+      rcov_data = JSON.parse(@rcov_text)
+
+      line_percent = calc_percent(rcov_data['line_coverage']['covered'], rcov_data['line_coverage']['total'])
+      branch_percent = calc_percent(rcov_data['branch_coverage']['covered'], rcov_data['branch_coverage']['total'])
+
+      {
+        total_lines: rcov_data['line_coverage']['total'],
+        lines_covered: rcov_data['line_coverage']['covered'],
+        lines_missed: rcov_data['line_coverage']['total'] -  rcov_data['line_coverage']['covered'],
+        line_percent: line_percent,
+
+        total_branches: rcov_data['branch_coverage']['total'],
+        branches_covered: rcov_data['branch_coverage']['covered'],
+        branches_missed: rcov_data['branch_coverage']['total'] -  rcov_data['branch_coverage']['covered'],
+        branch_percent: branch_percent,
+      }
+    end
+
+    def calc_percent(numerator, denominator)
+      decimal = (numerator * 100.0) / denominator
+      decimal = 0.0 if decimal.to_s.eql?("NaN")
+      decimal = decimal.round(4)
+      decimal = 99.9999 if decimal == 100.0 && numerator < denominator
+      decimal
+    end
+
+    def round_to_tenths(decimal)
+      decimal = 0.0 if decimal.to_s.eql?("NaN")
+    end
+
+    def to_h_old
       rcov_text = @rcov_text.split(NEW_FILE_MARKER)
 
       rcov_text.shift # Throw away the first entry - it's the execution time etc.

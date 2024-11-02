@@ -14,7 +14,20 @@
 <a href="../../../coverage/index.html" target="rcov">Results</a>
 </p>
 
-<p>Total Coverage: <%= @rcov.delete(:global_percent_run) %>% </p>
+<table>
+  <tr><th>&nbsp</th><th>Percent</th><th>Total</th><th>Covered</th><th>Missed</th></tr>
+  <tr><th>Lines</th>
+    <td><%= @rcov[:line_percent] %>%</td>
+    <td><%= @rcov[:total_lines] %></td>
+    <td><%= @rcov[:lines_covered] %></td>
+    <td><%= @rcov[:lines_missed] %></td></tr>
+  <tr><th>Branches</th>
+    <td><%= @rcov[:branch_percent] %>%</td>
+    <td><%= @rcov[:total_branches] %></td>
+    <td><%= @rcov[:branches_covered] %></td>
+    <td><%= @rcov[:branches_missed] %></td></tr>
+</table>
+
 <% if false %>
 <table>
   <tr>
