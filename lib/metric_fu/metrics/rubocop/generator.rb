@@ -28,7 +28,11 @@ module MetricFu
       # @note passing in false to report will return a hash
       #    instead of the default String
       # ::Rubocop::RubocopCalculator.new(args).report(false)
-      results = JSON.parse(`rubocop --format html --out rubocop.html --format json`)
+      output = `rubocop --format html --out rubocop.html --format json`
+      while output =~ /RuboCop server starting/
+        output = `rubocop --format html --out rubocop.html --format json`
+      end
+      results = JSON.parse(output)
       summary = results.delete('summary')
       summary.each do |k, v|
         results[k] = v
